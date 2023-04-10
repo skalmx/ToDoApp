@@ -9,4 +9,5 @@ type User struct {
 	Phone        string    `json:"phone"`
 	Password     string    `json:"password"`
 	RegisteredAt time.Time `json:"registeredAt"`
+	Lists 		 []List    `json:"lists,omitempty"`
 }
