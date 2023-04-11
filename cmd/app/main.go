@@ -1,14 +1,14 @@
 package main
 
 import (
-	"fmt"
+	_ "github.com/lib/pq"
 	"log"
-	"todoApp/pkg/database/postgres"
+	"todoApp/pkg/database"
 )
 
 func main() {
-	fmt.Println("test")
-	db, err :=  postgres.NewPostgresConnection()
+	
+	db, err := postgres.NewPostgresConnection()
 	if err != nil {
 		log.Fatal(err)
 	}
