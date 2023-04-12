@@ -12,6 +12,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	fmt.Println("1232323")
 	defer db.Close()
 }
