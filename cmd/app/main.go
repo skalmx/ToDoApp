@@ -1,9 +1,10 @@
 package main
 
 import (
-	_ "github.com/lib/pq"
 	"log"
+	"net/http"
 	"todoApp/pkg/database"
+	_ "github.com/lib/pq"
 )
 
 func main() {
@@ -12,6 +13,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("1232323")
+	
 	defer db.Close()
+
+	
 }
