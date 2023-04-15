@@ -23,16 +23,16 @@ CREATE TABLE IF NOT EXISTS users_lists (
     id SERIAL PRIMARY KEY,
     user_id integer NOT NULL,
     list_id integer NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (list_id) REFERENCES lists(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (list_id) REFERENCES lists(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS lists_tasks (
     id SERIAL PRIMARY KEY,
     list_id integer NOT NULL,
     task_id integer NOT NULL,
-    FOREIGN KEY (list_id) REFERENCES lists(id),
-    FOREIGN KEY (task_id) REFERENCES tasks(id)
+    FOREIGN KEY (list_id) REFERENCES lists(id) ON DELETE CASCADE,
+    FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE
 );
 
 

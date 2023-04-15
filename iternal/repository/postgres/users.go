@@ -63,7 +63,7 @@ func (u *Users) UpdateUser(ctx context.Context, user domain.UserInput, id int64)
 
 	arguments = append(arguments, id)
 	queryValues := strings.Join(values, ", ")
-	query := fmt.Sprintf("UPDATE lessons SET %s WHERE id=$%d", queryValues, argNumber) // get a query like UPDATE {} SET {smth}="123" .... WHERE ID = id
+	query := fmt.Sprintf("UPDATE users SET %s WHERE id=$%d", queryValues, argNumber) // get a query like UPDATE {} SET {smth}="123" .... WHERE ID = id
 
 	_, err := u.db.Exec(query, arguments...)
 	return err
