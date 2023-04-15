@@ -6,7 +6,7 @@ func (h *Handler) InitUsersRoutes(api *gin.RouterGroup) {
 	users := api.Group("/users")
 	{
 		users.POST("/", h.createUser)
-		users.PUT("/:id", h.updateUser)
+		users.PUT("/:userid", h.updateUser)
 	}
 }
 

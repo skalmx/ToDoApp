@@ -6,10 +6,10 @@ func (h *Handler) InitListsRoutes(api *gin.RouterGroup) {
 	lists := api.Group("/lists")
 	{
 		lists.GET("/", h.getAllLists)
-		lists.GET("/:id", h.getListById)
+		lists.GET("/:listid", h.getListById)
 		lists.POST("/", h.createList)
-		lists.PUT("/:id", h.updateList)
-		lists.DELETE("/:id", h.deleteList)
+		lists.PUT("/:listid", h.updateList)
+		lists.DELETE("/:listid", h.deleteList)
 	}
 }
 
