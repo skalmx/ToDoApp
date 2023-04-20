@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"net/http"
 	"todoApp/pkg/database"
 	_ "github.com/lib/pq"
 )

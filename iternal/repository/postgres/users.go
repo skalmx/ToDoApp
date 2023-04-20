@@ -10,15 +10,15 @@ import (
 	"golang.org/x/net/context"
 )
 
-type Users struct {
+type UsersRepo struct {
 	db *sql.DB
 }
 
-func NewUsersRepo(db *sql.DB) *Users {
-	return &Users{db}
+func NewUsersRepo(db *sql.DB) *UsersRepo {
+	return &UsersRepo{db}
 }
 
-func (u *Users) CreateUser(ctx context.Context, user domain.User) (int64, error) {
+func (u *UsersRepo) CreateUser(ctx context.Context, user domain.User) (int64, error) {
 	result, err := u.db.Exec("INSERT INTO users (name, email, phone, password, registeredAt) values ($1, $2, $3, $4, $5) RETURNING ID",
 		user.Name, user.Email, user.Phone, user.Phone, user.RegisteredAt)
 
@@ -32,7 +32,7 @@ func (u *Users) CreateUser(ctx context.Context, user domain.User) (int64, error)
 	return id, err
 }
 
-func (u *Users) UpdateUser(ctx context.Context, user domain.UserInput, id int64) error {
+func (u *UsersRepo) UpdateUser(ctx context.Context, user domain.UserInput, id int64) error {
 	values := make([]string, 0)         // its slice for get all parameters user want to change
 	arguments := make([]interface{}, 0) // its slice  with all arguments we need to change
 	argNumber := 1                      // counter of arguments
