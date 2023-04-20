@@ -18,7 +18,7 @@ func NewUsersRepo(db *sql.DB) *UsersRepo {
 	return &UsersRepo{db}
 }
 
-func (u *UsersRepo) CreateUser(ctx context.Context, user domain.User) (int64, error) {
+func (u *UsersRepo) Create(ctx context.Context, user domain.User) (int64, error) {
 	result, err := u.db.Exec("INSERT INTO users (name, email, phone, password, registeredAt) values ($1, $2, $3, $4, $5) RETURNING ID",
 		user.Name, user.Email, user.Phone, user.Phone, user.RegisteredAt)
 
@@ -32,7 +32,7 @@ func (u *UsersRepo) CreateUser(ctx context.Context, user domain.User) (int64, er
 	return id, err
 }
 
-func (u *UsersRepo) UpdateUser(ctx context.Context, user domain.UserInput, id int64) error {
+func (u *UsersRepo) Update(ctx context.Context, user domain.UserInput, id int64) error {
 	values := make([]string, 0)         // its slice for get all parameters user want to change
 	arguments := make([]interface{}, 0) // its slice  with all arguments we need to change
 	argNumber := 1                      // counter of arguments

@@ -17,7 +17,7 @@ func NewTasksRepo(db *sql.DB) *TasksRepo {
 	return &TasksRepo{db}
 }
 
-func (t *TasksRepo) Create(ctx context.Context, task domain.TaskInput ) (int64, error) {
+func (t *TasksRepo) Create(ctx context.Context, task domain.TaskInput, listId int64) (int64, error) {
 	result, err := t.db.Exec("INSERT INTO tasks (name, status, expiresAt) values ($1, $2, $3) RETURNING ID",
 					task.Name, task.Status, task.ExpiresAt)
 	
@@ -31,7 +31,7 @@ func (t *TasksRepo) Create(ctx context.Context, task domain.TaskInput ) (int64, 
 		return 0, err
 	}
 	_, err = t.db.Exec("INSERT INTO lists_tasks (list_id, task_id) values ($1, $2)",
-						task.ListID, createdId)
+						listId, createdId)
 	
 	if err != nil {
 		log.Println("cant insert in lists_tasks table")
@@ -54,7 +54,6 @@ func (t *TasksRepo) GetAll(ctx context.Context, listId int64) ([]domain.Task, er
 		if err := rows.Scan(task.ID, task.Name, task.Status, task.ExpiresAt); err != nil {
 			return nil, err
 		}
-		task.ListID = listId
 		tasks = append(tasks, task)
 	}
 	return tasks, nil
@@ -64,7 +63,7 @@ func (t *TasksRepo) GetOne(ctx context.Context, listId int64, taskId int64) (dom
 	var task domain.Task
 	err := t.db.QueryRow("SELECT T.id, T.name, T.status, T.expiresAt FROM tasks AS T JOIN lists_tasks AS L ON L.list_id = $1 AND T.id = $2 AND T.id = L.task_id", listId, taskId).
 		Scan(task.ID, task.Name, task.Status, task.ExpiresAt)
-	task.ListID = listId
+
 	if err == sql.ErrNoRows {
 		log.Println("This method doesnt return a row")
 		return domain.Task{}, err
@@ -119,12 +118,5 @@ func (t *TasksRepo) Update(ctx context.Context, input domain.TaskInput, taskId i
 		return err
 	}
 
-	if input.ListID != nil {
-		_, err = t.db.Exec("UPDATE lists_tasks SET list_id=$1", &input.ListID)
-		if err != nil {
-			log.Println("cant cnange fkey in lists_tasks")
-			return err
-		}
-	}
 	return nil
 }

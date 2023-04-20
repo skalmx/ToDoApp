@@ -7,12 +7,10 @@ type Task struct {
 	Name         string    `json:"name"`
 	Status       string    `json:"status"`
 	ExpiresAt    time.Time `json:"expiresAt"`
-	ListID		 int64	   `json:"listId"`
 }
 
 type TaskInput struct {
 	Name         string    `json:"name"`
 	Status       string    `json:"status"`
 	ExpiresAt    time.Time `json:"expiresAt"`
-	ListID		 *int64	   `json:"listId"`
 }

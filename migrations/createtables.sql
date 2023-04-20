@@ -35,6 +35,4 @@ CREATE TABLE IF NOT EXISTS lists_tasks (
     FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE
 );
 
-
-
     
