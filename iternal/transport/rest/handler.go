@@ -42,6 +42,5 @@ func (h *Handler) InitRoutes() *gin.Engine{
 			tasks.DELETE("/:id", h.deleteTask)
 		}
 	}
-	
 	return r
 }
