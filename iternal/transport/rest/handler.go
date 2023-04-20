@@ -12,35 +12,11 @@ func NewHandler() *Handler {
 func (h *Handler) InitRoutes() *gin.Engine{
 	r := gin.Default()
 
-	app := r.Group("/app")
+	api := r.Group("/api")
 	{
-		users := app.Group("/user")
-		{
-			users.POST("/create", h.createUser)
-			users.PUT("/update/:id", h.updateUser)
-		}
-		
-		lists := app.Group("/lists")
-		{
-			lists.GET("/", h.getAllLists)
-			lists.GET("/:id", h.getListById)
-			lists.POST("/", h.createList)
-			lists.PUT("/:id", h.updateList)
-			lists.DELETE("/:id", h.deleteList)
-
-			tasks := lists.Group(":id/tasks")
-			{
-				tasks.GET("/", h.getAllTasksInList)
-				tasks.POST("/", h.createTaskInList)
-			}
-		}
-
-		tasks := app.Group("/tasks")
-		{
-			tasks.GET("/:id", h.getTaskById)
-			tasks.PUT("/:id", h.updateTask)
-			tasks.DELETE("/:id", h.deleteTask)
-		}
+		h.InitUsersRoutes(api)	
+		h.InitListsRoutes(api)
+		h.InitTasksRoutes(api)
 	}
 	return r
 }
