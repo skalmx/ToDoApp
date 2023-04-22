@@ -86,23 +86,23 @@ func (t *TasksRepo) Delete(ctx context.Context, listId int64, taskId int64) erro
 	return nil
 }
 
-func (t *TasksRepo) Update(ctx context.Context, input domain.TaskInput, taskId int64) error {
+func (t *TasksRepo) Update(ctx context.Context, task domain.TaskInput, taskId int64) error {
 	values := make([]string, 0) // its slice for get all parameters user want to change
 	arguments := make([]interface{}, 0) // its slice  with all arguments we need to change
 	argNumber := 1 // counter of arguments 
 
-	if input.Name != "" {
-		arguments = append(arguments, input.Name)
+	if task.Name != "" {
+		arguments = append(arguments, task.Name)
 		values = append(values, fmt.Sprintf("name=$%d", argNumber))
 		argNumber++
 	}
-	if input.Status != "" {
-		arguments = append(arguments, input.Status)
+	if task.Status != "" {
+		arguments = append(arguments, task.Status)
 		values = append(values, fmt.Sprintf("status=$%d", argNumber))
 		argNumber++
 	}
-	if !input.ExpiresAt.IsZero() {
-		arguments = append(arguments, input.ExpiresAt)
+	if !task.ExpiresAt.IsZero() {
+		arguments = append(arguments, task.ExpiresAt)
 		values = append(values, fmt.Sprintf("expiresAt=$%d", argNumber))
 		argNumber++
 	}

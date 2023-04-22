@@ -12,7 +12,7 @@ type ListService struct {
 }
 
 func NewListService(repo repository.ListsRepo) *ListService {
-	return &ListService{
+	return &ListService {
 		repo: repo,
 	}
 }

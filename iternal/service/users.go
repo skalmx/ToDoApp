@@ -13,7 +13,7 @@ type UserService struct {
 }
 
 func NewUserService(repo repository.UsersRepo) *UserService {
-	return &UserService{
+	return &UserService {
 		repo : repo,
 	}
 }
