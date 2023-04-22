@@ -19,7 +19,7 @@ func NewListsRepo(db *sql.DB) *ListsRepo {
 	}
 } 
 
-func (l *ListsRepo) Create(ctx context.Context, list domain.List, userId int64) (int64, error) {
+func (l *ListsRepo) Create(ctx context.Context, list domain.ListInput, userId int64) (int64, error) {
 	result, err := l.db.Exec("INSERT INTO lists (name) values ($1) RETURNING ID", list.Name)
 	if err != nil {
 		log.Println("cant create a list")

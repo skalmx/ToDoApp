@@ -7,7 +7,7 @@ import (
 )
 
 type Users interface {
-	Create(ctx context.Context, user domain.User) (int64, error)
+	Create(ctx context.Context, user domain.UserInput) (int64, error)
 	Update(ctx context.Context, user domain.UserInput, id int64) error
 }
 
